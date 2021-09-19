@@ -1,0 +1,64 @@
+#!/usr/bin/python3
+from sys import version_info
+if version_info.major < 3:
+	print('[!] Python2 is nono. If you MUST use Python2, rename ~/.pythonrc to something else.')
+	exit()
+import_failed = []
+try:
+	from atexit import register as atexit_register
+except ImportError:
+	import_failed.append('atexit')
+try:
+	#from readline import set_auto_history
+	#set_auto_history(False)
+	from readline import read_history_file
+	from readline import write_history_file
+	from readline import set_history_length
+	history_file = '/home/USERNAMEGOESHERE/.python_history'
+	try:
+		read_history_file(history_file )
+	except IOError:
+		pass
+	set_history_length(0)
+	atexit_register(write_history_file, history_file)
+except ImportError:
+	import_failed.append('readline')
+from os import listdir
+from os import rename
+from os import getcwd
+from os import chdir
+from os.path import isfile
+from os.path import isdir
+from time import sleep
+from datetime import datetime
+from requests import get
+from requests import post
+from json import load as json_load
+from json import loads as json_loads
+from json import dump as json_dump
+from json import dumps as json_dumps
+from random import randint
+from random import choice
+from random import uniform
+try:
+	# import numpy as np	# Comment out in normal use
+	pass
+except ImportError:
+	import_failed.append('numpy')
+if len(import_failed):
+	print('[!] One or more modules failed to import. Full list of failed modules:')
+	print('    ', end='')
+	for fail in import_failed:
+		print('%s ' % fail, end='')
+	print('')
+autoimported_modules = ['os.listdir', 'os.rename', 'os.getcwd', 'os.chdir', 'os.path.isfile', 'os.path.isdir', 'time.sleep', 'datetime.datetime', 'requests.get', 'requests.post', 'json.load(json_load)', 'json.loads(json_loads)', 'json.dump(json_dump)', 'json.dumps(json_dumps)', 'random.randint', 'random.choice', 'random.uniform']
+print('\033[1m[*] \033[94mAutoimported modules:\033[0m')
+print('    ', end='')
+autoimported_modules_c = 0
+for m in autoimported_modules:
+	print('%s ' % m, end='')
+	autoimported_modules_c += 1
+	if autoimported_modules_c == 6:
+		print("\n    ", end='')
+		autoimported_modules_c = 0
+print('')
