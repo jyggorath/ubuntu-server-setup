@@ -53,6 +53,7 @@ if [ "$password" == "" ]; then
 		echo ""
 		echo -n "Repeat password:"
 		read -s p2
+		echo ""
 		[ "$p1" == "$p2" ] && ok=1 || echo "Doesn't match, try again"
 	done
 	password="$p1"

@@ -31,7 +31,7 @@ function statuserror {
 
 if [ $# -lt 1 ]; then
 	statuserror "Specify atleast one option:"
-	echo "    NanoRC, Python, Apache, ApacheDomain, PHP, PHPSQLite, PHPMySQL"
+	echo "    NanoRC, Python, CommonApps, Apache, ApacheDomain, PHP, PHPSQLite, PHPMySQL"
 	echo "    or Full (NanoRC, Python, ApacheDomain, PHPMySQL)"
 	echo "    (setup of bashrc and sshd hardening is done regardless)"
 	exit 1
@@ -40,6 +40,7 @@ fi
 full=0
 nanorc=0
 python=0
+commons=0
 apache=0
 apachedom=0
 php=0
@@ -50,6 +51,7 @@ for i in $@; do
 	if [ "$i" == "Full" ]; then
 		nanorc=1
 		python=1
+		commons=1
 		apachedom=1
 		phpm=1
 		full=1
@@ -60,6 +62,7 @@ if [ $full -eq 0 ]; then
 	for i in $@; do
 		[ "$i" == "NanoRC" ] && nanorc=1
 		[ "$i" == "Python" ] && python=1
+		[ "$i" == "CommonApps" ] && commons=1
 		[ "$i" == "Apache" ] && apache=1
 		[ "$i" == "ApacheDomain" ] && apachedom=1
 		[ "$i" == "PHP" ] && php=1
@@ -85,6 +88,7 @@ wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/ss
 wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/bashrc.sh" || downloaderror=1
 if [ $nanorc -eq 1 ]; then wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/nanorc.sh" || downloaderror=1; fi
 if [ $python -eq 1 ]; then wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/python.sh" || downloaderror=1; fi
+# download commonapps.sh
 if [ $downloaderror -ne 0 ]; then
 	statuserror "Error while downloading, make sure there's a network connection and that all the files are present on GitHub."
 	exit 1
@@ -95,8 +99,14 @@ chmod u+x sshd_hardening.sh
 chmod u+x bashrc.sh
 [ $nanorc -eq 1 ] && chmod u+x nanorc.sh
 [ $python -eq 1 ] && chmod u+x python.sh
+[ $commons -eq 1 ] && chmod u+x commonapps.sh
 
 ./sshd_hardening.sh
 ./bashrc.sh
 [ $nanorc -eq 1 ] && ./nanorc.sh
 [ $python -eq 1 ] && ./python.sh
+[ $commons -eq 1 ] && ./commonapps.sh
+
+[ $nanorc -eq 1 ] && rm nanorc.sh
+[ $python -eq 1 ] && rm python.sh
+[ $commons -eq 1 ] && rm commonapps.sh

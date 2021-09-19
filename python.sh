@@ -32,8 +32,6 @@ if [ $? -gt 0 ]; then
 	exit 1
 fi
 
-# atexit is standard?
-# python3 -m pip install -q readline
 python3 -m pip install -q numpy
 python3 -m pip install -q beautifulsoup4
 
