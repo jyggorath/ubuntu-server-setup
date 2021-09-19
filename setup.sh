@@ -88,7 +88,7 @@ wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/ss
 wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/bashrc.sh" || downloaderror=1
 if [ $nanorc -eq 1 ]; then wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/nanorc.sh" || downloaderror=1; fi
 if [ $python -eq 1 ]; then wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/python.sh" || downloaderror=1; fi
-# download commonapps.sh
+if [ $commons -eq 1 ]; then wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/commonapps.sh" || downloaderror=1; fi
 if [ $downloaderror -ne 0 ]; then
 	statuserror "Error while downloading, make sure there's a network connection and that all the files are present on GitHub."
 	exit 1
