@@ -19,7 +19,7 @@ function statuswarn {
 	printf "${bold}[${yellow}WARNING${cyan}::${cc}${bold}SETUP]${cc} $1\n"
 }
 function statusnote {
-	printf "${bold}[${blue}NOTE${cyan}::${cc}${bold}SETUP]${cc} $1\n"
+	printf "${bold}[${blue}NOTE${cyan}::::${cc}${bold}SETUP]${cc} $1\n"
 }
 function statuserror {
 	printf "${bold}[${red}ERROR${cyan}::${cc}${bold}SETUP]${cc} $1\n"

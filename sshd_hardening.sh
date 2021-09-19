@@ -16,7 +16,7 @@ function statusgood {
 	printf "${bold}[${green}STATUS${cyan}::${cc}${bold}SSHD]${cc} $1\n"
 }
 function statusnote {
-	printf "${bold}[${blue}NOTE${cyan}::${cc}${bold}SSHD]${cc} $1\n"
+	printf "${bold}[${blue}NOTE${cyan}::::${cc}${bold}SSHD]${cc} $1\n"
 }
 function statuserror {
 	printf "${bold}[${red}ERROR${cyan}::${cc}${bold}SSHD]${cc} $1\n"

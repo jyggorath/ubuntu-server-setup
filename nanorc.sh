@@ -10,13 +10,13 @@ cyan="\033[01;36m"
 green="\033[1;32m"
 cc="\033[0m"
 function statusgood {
-	printf "${bold}[${green}STATUS${cyan}::${cc}${bold}SSHD]${cc} $1\n"
+	printf "${bold}[${green}STATUS${cyan}::${cc}${bold}NANORC]${cc} $1\n"
 }
 function statusnote {
-	printf "${bold}[${blue}NOTE${cyan}::${cc}${bold}SSHD]${cc} $1\n"
+	printf "${bold}[${blue}NOTE${cyan}::::${cc}${bold}NANORC]${cc} $1\n"
 }
 function statuserror {
-	printf "${bold}[${red}ERROR${cyan}::${cc}${bold}SSHD]${cc} $1\n"
+	printf "${bold}[${red}ERROR${cyan}::${cc}${bold}NANORC]${cc} $1\n"
 }
 # *************************************
 #        END:: Output tools
@@ -54,7 +54,7 @@ statusgood "Main nanorc set up"
 statusnote "Setting up language specific nano rc's..."
 
 downloaderror=0
-wget -q "https://github.com/jyggorath/ubuntu-server-setup/blob/main/skel_files/nanorcs.tar.gz?raw=true" || downloaderror=1
+wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/skel_files/nanorcs.tar.gz" || downloaderror=1
 if [ $downloaderror -ne 0 ]; then
 	statuserror "Error downloading language rc archive. Check GitHub and internet connection."
 	exit 1

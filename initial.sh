@@ -16,11 +16,8 @@ cc="\033[0m"
 function statusgood {
 	printf "${bold}[${green}STATUS${cyan}::${cc}${bold}BASIC]${cc} $1\n"
 }
-function statuswarn {
-	printf "${bold}[${yellow}WARNING${cyan}::${cc}${bold}BASIC]${cc} $1\n"
-}
 function statusnote {
-	printf "${bold}[${blue}NOTE${cyan}::${cc}${bold}BASIC]${cc} $1\n"
+	printf "${bold}[${blue}NOTE${cyan}::::${cc}${bold}BASIC]${cc} $1\n"
 }
 function statuserror {
 	printf "${bold}[${red}ERROR${cyan}::${cc}${bold}BASIC]${cc} $1\n"
