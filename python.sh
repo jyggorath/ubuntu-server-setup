@@ -37,6 +37,13 @@ python3 -m pip install -q readline
 python3 -m pip install -q numpy
 python3 -m pip install -q beautifulsoup4
 
+downloaderror=0
+wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/skel_files/pythonrc.skel" || downloaderror=1
+if [ $downloaderror -ne 0 ]; then
+	statuserror "Error downloading pythonrc skel file. Check GitHub and internet connection."
+	exit 1
+fi
+
 username=$(whoami)
 sed -i "s/USERNAMEGOESHERE/$username/" pythonrc.skel
 [ -f "~/.pythonrc" ] && rm ~/.pythonrc

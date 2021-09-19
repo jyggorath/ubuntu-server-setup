@@ -79,12 +79,24 @@ if [ $phpsum -gt 1 ]; then
 	exit 1
 fi
 
+downloaderror=0
+statusnote "Downloading setup scripts..."
+wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/sshd_hardening.sh" || downloaderror=1
+wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/bashrc.sh" || downloaderror=1
+if [ $nanorc -eq 1 ]; then wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/nanorc.sh" || downloaderror=1; fi
+if [ $python -eq 1 ]; then wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/python.sh" || downloaderror=1; fi
+if [ $downloaderror -ne 0 ]; then
+	statuserror "Error while downloading, make sure there's a network connection and that all the files are present on GitHub."
+	exit 1
+fi
+statusgood "Done downloading setup scripts"
+
 chmod u+x sshd_hardening.sh
 chmod u+x bashrc.sh
-chmod u+x nanorc.sh
-chmod u+x python.sh
+[ $nanorc -eq 1 ] && chmod u+x nanorc.sh
+[ $python -eq 1 ] && chmod u+x python.sh
 
 ./sshd_hardening.sh
 ./bashrc.sh
-./nanorc.sh
-./python.sh
+[ $nanorc -eq 1 ] && ./nanorc.sh
+[ $python -eq 1 ] && ./python.sh

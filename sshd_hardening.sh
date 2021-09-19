@@ -28,6 +28,13 @@ function statuserror {
 
 statusnote "Hardening SSHD config..."
 
+downloaderror=0
+wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/skel_files/sshdconf.skel" || downloaderror=1
+if [ $downloaderror -ne 0 ]; then
+	statuserror "Error downloading sshd_config skel file. Check GitHub and internet connection."
+	exit 1
+fi
+
 sudo mv /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
 sudo mv sshdconf.skel /etc/ssh/sshd_config
 sudo chown root:root /etc/ssh/sshd_config
