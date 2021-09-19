@@ -73,7 +73,7 @@ if [ $apache -eq 1 ] && [ $apachedom -eq 1 ]; then
 	exit 1
 fi
 
-phpsum $php=$(($php+$phpl+$phpm))
+phpsum=$(($php+$phpl+$phpm))
 if [ $phpsum -gt 1 ]; then
 	statuserror "Only 1 PHP option is allowed at a time"
 	exit 1
