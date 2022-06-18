@@ -89,6 +89,7 @@ wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/ba
 if [ $nanorc -eq 1 ]; then wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/nanorc.sh" || downloaderror=1; fi
 if [ $python -eq 1 ]; then wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/python.sh" || downloaderror=1; fi
 if [ $commons -eq 1 ]; then wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/commonapps.sh" || downloaderror=1; fi
+if [ $apache -eq 1 ] || [ $apachedom -eq 1 ]; then wget -q "https://raw.githubusercontent.com/jyggorath/ubuntu-server-setup/main/apache.sh" || downloaderror=1; fi
 if [ $downloaderror -ne 0 ]; then
 	statuserror "Error while downloading, make sure there's a network connection and that all the files are present on GitHub."
 	exit 1
@@ -100,13 +101,24 @@ chmod u+x bashrc.sh
 [ $nanorc -eq 1 ] && chmod u+x nanorc.sh
 [ $python -eq 1 ] && chmod u+x python.sh
 [ $commons -eq 1 ] && chmod u+x commonapps.sh
+[ $apache -eq 1 ] && chmod u+x apache.sh
+[ $apachedom -eq 1 ] && chmod u+x apache.sh
 
 ./sshd_hardening.sh
 ./bashrc.sh
 [ $nanorc -eq 1 ] && ./nanorc.sh
 [ $python -eq 1 ] && ./python.sh
 [ $commons -eq 1 ] && ./commonapps.sh
+[ $apache -eq 1 ] && ./apache.sh simple
+[ $apachedom -eq 1 ] && ./apache.sh domain "$1" "$2"
 
+rm sshd_hardening.sh
+rm bashrc.sh
 [ $nanorc -eq 1 ] && rm nanorc.sh
 [ $python -eq 1 ] && rm python.sh
 [ $commons -eq 1 ] && rm commonapps.sh
+[ $apache -eq 1 ] && rm apache.sh
+[ $apachedom -eq 1 ] && rm apache.sh
+
+# Can I delete myself?
+rm setup.sh
